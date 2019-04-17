@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="container-fluid">
+                    <div class="jumbotron-fluid">
+                        <div class="container text-center">
+                            <img src="LOGOTGIF.jpg" class="img-fluid" style="max-width: 80%" alt="Responsive image">
+                        </div>
+                    </div>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <ul class="navbar-nav mr-auto lead">
+                            <li class="nav-item py-0">
+                                <a class="nav-link" href="home.html">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbar-drop-table" data-toggle="dropdown">
+                                  Congress 113
+                              </a>
+                              <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="senate-data.html">Senate</a>
+                                  <a class="dropdown-item" href="house-data.html">House</a>
+                              </div>
+                            </li>
+                            <li class="nav-item active dropdown">
+                                <a class="nav-link dropdown-toggle active" href="#" id="navbar-drop-attendance" data-toggle="dropdown">
+                                    Attendance
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="senate-attendance.html">Senate</a>
+                                    <a class="active dropdown-item" href="house-attendance.html">House</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbar-drop-loyalty" data-toggle="dropdown">
+                                    Party Loyalty
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="senate-party-loyalty.html">Senate</a>
+                                    <a class="dropdown-item" href="house-party-loyalty.html">House</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="navbar-text py-0">
+                          <div class="card border-light">
+                            <div class="row no-gutters">
+                                  <div class="card-header">
+                                    <i class="far fa-envelope" style="font-size:40px;"></i>
+                                  </div>
+                                <div class="card-body">
+                                  <a href="mailto:info@tgif.net?Subject=Hello">info@tgif.net</a>
+                                </div>
+                            </div>
+                          </div>
+                        </span>
+                    </nav>
+                </div>
+            <header>
+            </header>
+            <!--Table container-->
+            <div id="app" class="container-fluid mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Attendance</h2>
+                        <p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
+
+                        <p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="container-fluid">
+                            <div class="card card-body bg-light border-0 text-right">
+                                <h3>House at a glance</h3>
+                            </div>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Party</th>
+                                    <th>Nº of Reps</th>
+                                    <th>% Voted w/ Party</th>
+                                </tr>
+                                <tr v-for="party in statisticsNumbers">
+                                    <td>{{party.name}}</td>
+                                    <td>{{party.numbers}}</td>
+                                    <td>{{party.pct}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="container-fluid">
+                            <div class="card card-body bg-light border-0">
+                                <h3>Least Engaged (Bottom 10% Attendance)</h3>
+                            </div>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Nº of Missed Votes</th>
+                                    <th>%Missed</th>
+                                </tr>
+                                <tr v-for="member in statisticsAttendance.least_missed_members">
+                                    <td v-if="member.url != ''"><a :href="member.url"> {{member.first_name}} {{member.middle_name}} {{member.last_name}} </a></td>
+                                    <td v-else> {{member.first_name}} {{member.middle_name}} {{member.last_name}} </td>    
+                                    <td>{{member.missed_votes}}</td>
+                                    <td>{{member.missed_votes_pct}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="container-fluid">
+                            <div class="card card-body bg-light border-0">
+                                <h3>Most Engaged (Top 10% Attendance)</h3>
+                            </div>
+                            <table class="table table-hover">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Nº of Missed Votes</th>
+                                    <th>%Missed</th>
+                                </tr>
+                                <tr v-for="member in statisticsAttendance.most_missed_members">
+                                    <td v-if="member.url != ''"><a :href="member.url"> {{member.first_name}} {{member.middle_name}} {{member.last_name}} </a></td>
+                                    <td v-else> {{member.first_name}} {{member.middle_name}} {{member.last_name}} </td>    
+                                    <td>{{member.missed_votes}}</td>
+                                    <td>{{member.missed_votes_pct}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        	</div>
+            <footer class="container-fluid text-center lead">
+            <div class="card card-body bg-light">
+            <p> &#64;2016 TGIF | All Rights Reserved </p>
+            </div>
+            </footer>
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="ajaxFunction.js"></script>
+<script type="text/javascript">
+  extractValueForApp(requestData("house"));  
+</script>
+
+<!--
+    <script src="pro-congress-113-house.js"></script>
+    <script src="functions.js"></script>
+    <script src="statistics.js"></script>
+    <script type="text/javascript"> statisticsSetup(statisticsObj, "attendance"); </script>
+    <script> document.getElementById("table1").innerHTML=statisticsTableBuilder(statisticsObj,"atGlance"); </script>
+    <script> document.getElementById("table2").innerHTML=statisticsTableBuilder(statisticsObj,"leastEngaged"); </script>
+    <script> document.getElementById("table3").innerHTML=statisticsTableBuilder(statisticsObj,"mostEngaged"); </script>
+-->
